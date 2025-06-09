@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class KartService {
@@ -41,4 +42,9 @@ public class KartService {
             throw new Exception(e.getMessage());
         }
     }
+
+    public List<Kart> getAvailableKartsByCodes(List<String> kartCodes) {
+        return kartRepository.findByCodeInAndStatus(kartCodes, "disponible");
+    }
+
 }

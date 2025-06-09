@@ -81,4 +81,21 @@ public class ClientController {
         clientService.deleteClientByRut(rut);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/batch")
+    public ResponseEntity<List<Client>> getClientsByRuts(@RequestBody List<String> ruts) {
+        List<Client> clients = clientService.getClientsByRuts(ruts);
+        return ResponseEntity.ok(clients);
+    }
+
+    @GetMapping("/{id}/visits")
+    public ResponseEntity<Integer> getVisitCount(@PathVariable Long id) {
+        Client client = clientService.getClientById(id);
+        if (client == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(client.getMonthlyVisitCount()); // asumiendo que tienes ese campo
+    }
+
+
 }

@@ -28,11 +28,11 @@ public class PaymentReceiptService {
         int people = reservation.getNumberOfPeople();
         LocalDate reservationDate = reservation.getStartDateTime().toLocalDate();
 
-        // 1) Obtener precio base desde el Pricing Service
         Float totalPrice = restTemplate.getForObject(
-                "http://pricing-service/pricing/by-laps/" + laps,
+                "http://pricing-service/pricing/laps/" + laps + "/price",
                 Float.class
         );
+
 
         if (totalPrice == null) {
             throw new RuntimeException("No hay precio configurado para esta cantidad de vueltas");
@@ -47,16 +47,17 @@ public class PaymentReceiptService {
 
         if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
             SpecialDay weekend = restTemplate.getForObject(
-                    "http://specialday-service/specialday/by-type/WEEKEND",
+                    "http://specialday-service/special-days/type/WEEKEND",
                     SpecialDay.class
             );
+
             if (weekend != null) {
                 priceMultiplier = (float) weekend.getPriceMultiplier();
                 System.out.println("Aplicado multiplicador de fin de semana: " + priceMultiplier);
             }
         } else {
             SpecialDay holiday = restTemplate.getForObject(
-                    "http://specialday-service/specialday/by-date?date=" + reservationDate,
+                    "http://specialday-service/special-days/is-special/" + reservationDate,
                     SpecialDay.class
             );
             if (holiday != null) {
@@ -72,9 +73,9 @@ public class PaymentReceiptService {
         float groupDiscount = calculateGroupDiscount(people);
         System.out.println("Descuento grupal: " + groupDiscount + "%");
 
-        // 4) Obtener clientes desde Client Service
+        // 4) Obtener todos los cleientes
         List<Client> clients = restTemplate.postForObject(
-                "http://client-service/client/by-ruts",
+                "http://client-service/clients/batch",
                 reservation.getClientRuts(),
                 List.class
         );
@@ -85,9 +86,17 @@ public class PaymentReceiptService {
 
         // 5) Lógica cumpleañeros
         SpecialDay birthdaySpecial = restTemplate.getForObject(
-                "http://specialday-service/specialday/by-type/BIRTHDAY",
+                "http://specialday-service/special-days/type/BIRTHDAY", // <- ruta corregida
                 SpecialDay.class
         );
+
+        if (birthdaySpecial == null) {
+            System.out.println("No se encontró un especial de cumpleaños en el servicio.");
+        } else {
+            System.out.println("Multiplicador de cumpleaños: " + birthdaySpecial.getPriceMultiplier());
+        }
+
+
 
         int maxBirthday = calculateMaxBirthday(people);
         Set<String> birthdayNames = getBirthdayClients(clients, reservationDate, maxBirthday);
@@ -153,7 +162,7 @@ public class PaymentReceiptService {
 
             // Obtener y aplicar descuento por frecuencia desde Client Service
             Integer visits = restTemplate.getForObject(
-                    "http://client-service/client/" + client.getId() + "/visits",
+                    "http://client-service/clients/" + client.getId() + "/visits",
                     Integer.class
             );
 

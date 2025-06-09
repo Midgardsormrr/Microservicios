@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,8 +26,7 @@ public class PaymentReceipt {
     private int numberOfPeople;
     private String reservedBy; // nombre del cliente principal
 
-    //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "payment_receipt_id")   // <-- aquí
-    private List<PaymentDetail> paymentDetails;
+    @Transient // JPA ignorará esta propiedad al persistir
+    private List<PaymentDetail> paymentDetails = new ArrayList<>();
 
 }

@@ -82,4 +82,11 @@ public class KartController {
         kartService.deleteKart(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/available")
+    public ResponseEntity<List<Kart>> getAvailableKartsByCodes(@RequestBody List<String> kartCodes) {
+        List<Kart> availableKarts = kartService.getAvailableKartsByCodes(kartCodes);
+        return ResponseEntity.ok(availableKarts);
+    }
+
 }

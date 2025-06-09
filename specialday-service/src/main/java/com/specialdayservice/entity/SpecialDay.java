@@ -18,7 +18,6 @@ public class SpecialDay{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-
     private LocalDate date;
     private String type;                // HOLIDAY, WEEKEND
     private double priceMultiplier;

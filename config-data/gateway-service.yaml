@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: client-service
+          uri: lb://client-service
+          predicates:
+            - Path=/client/**
+        - id: kart-service
+          uri: lb://kart-service
+          predicates:
+            - Path=/kart/**
+        - id: paymentdetail-service
+          uri: lb://paymentdetail-service
+          predicates:
+            - Path=/paymentdetail/**
+        - id: paymentreceipt-service
+          uri: lb://paymentreceipt-service
+          predicates:
+            - Path=/paymentreceipt/**
+        - id: pricing-service
+          uri: lb://pricing-service
+          predicates:
+            - Path=/pricing/**
+        - id: reservation-service
+          uri: lb://reservation-service
+          predicates:
+            - Path=/reservation/**
+        - id: specialday-service
+          uri: lb://specialday-service
+          predicates:
+            - Path=/specialday/**

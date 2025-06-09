@@ -31,4 +31,12 @@ public class ClientService {
     public void deleteClientByRut(String rut) throws Exception {
         clientRepository.deleteByRut(rut);
     }
+    public List<Client> getClientsByRuts(List<String> ruts) {
+        return clientRepository.findByRutIn(ruts);
+    }
+
+    public Client getClientById(Long id) {
+        return clientRepository.findById(id).orElse(null);
+    }
+
 }

@@ -24,4 +24,9 @@ public class SpecialDayService {
     public boolean isSpecialDay(LocalDate date) {
         return specialDayRepository.existsByDate(date);
     }
+
+    public SpecialDay getSpecialDayByType(String type) {
+        return specialDayRepository.findByType(type);
+    }
+
 }

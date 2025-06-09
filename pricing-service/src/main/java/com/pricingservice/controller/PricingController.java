@@ -56,4 +56,14 @@ public class PricingController {
         Integer duration = pricingService.getTotalDurationByLaps(laps);
         return ResponseEntity.ok(duration);
     }
+
+    @GetMapping("/laps/{laps}/price")
+    public ResponseEntity<Float> getPriceByLaps(@PathVariable int laps) {
+        Pricing pricing = pricingService.getPricingByLaps(laps);
+        if (pricing == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok((float) pricing.getBasePrice());
+    }
+
 }

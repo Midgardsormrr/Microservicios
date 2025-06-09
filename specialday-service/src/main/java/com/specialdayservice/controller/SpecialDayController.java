@@ -38,4 +38,13 @@ public class SpecialDayController {
         boolean isSpecial = specialDayService.isSpecialDay(LocalDate.parse(date));
         return ResponseEntity.ok(isSpecial);
     }
+
+    @GetMapping("/type/{type}")
+    public ResponseEntity<SpecialDay> getByType(@PathVariable("type") String type) {
+        SpecialDay specialDay = specialDayService.getSpecialDayByType(type);
+        if (specialDay == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(specialDay);
+    }
+
 }

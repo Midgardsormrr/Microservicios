@@ -11,5 +11,4 @@ public class PaymentDetail {
     private Long id;
     private String clientName;
     private float amount;
-    private Long receiptId;
 }

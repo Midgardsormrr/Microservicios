@@ -85,7 +85,8 @@ public class ReservationService {
         }
 
         List<Client> clients = Arrays.asList(restTemplate.postForObject(
-                "http://client-service/clients/", clientRuts, Client[].class));
+                "http://client-service/clients/batch", clientRuts, Client[].class));
+
         if (clients.size() != clientRuts.size()) {
             throw new RuntimeException("Uno o más RUTs no están registrados en el sistema.");
         }
@@ -101,6 +102,7 @@ public class ReservationService {
             throw new RuntimeException("Uno o más karts no están disponibles");
         }
 
+
         Reservation newReservation = new Reservation();
         newReservation.setStartDateTime(start);
         newReservation.setEndDateTime(end);
@@ -114,7 +116,7 @@ public class ReservationService {
 
         HttpEntity<Reservation> request = new HttpEntity<>(newReservation);
         PaymentReceipt receipt = restTemplate.postForObject(
-                "http://payment-service/receipts", request, PaymentReceipt.class);
+                "http://paymentreceipt-service/receipts", request, PaymentReceipt.class);
 
         return newReservation;
     }
@@ -184,7 +186,7 @@ public class ReservationService {
 
         for (Reservation reservation : reservations) {
             PaymentReceipt receipt = restTemplate.getForObject(
-                    "http://payment-service/receipts/" + reservation.getReservationCode(),
+                    "http://paymentreceipt-service/receipts/" + reservation.getReservationCode(),
                     PaymentReceipt.class
             );
 
