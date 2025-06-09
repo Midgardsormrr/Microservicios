@@ -2,7 +2,7 @@ package com.clientservice.service;
 
 import com.clientservice.entity.Client;
 import com.clientservice.repository.ClientRepository;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

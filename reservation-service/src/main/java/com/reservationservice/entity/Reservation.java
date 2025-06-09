@@ -1,6 +1,6 @@
 package com.reservationservice.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import com.reservationservice.model.PaymentReceipt;
 import lombok.AllArgsConstructor;
 import lombok.Data;

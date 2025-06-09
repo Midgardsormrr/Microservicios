@@ -8,21 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eureka-service" />
-        <module name="config-service" />
-      </profile>
-      <profile name="Annotation profile for kart-service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-        </processorPath>
         <module name="specialday-service" />
+        <module name="config-service" />
         <module name="gateway-service" />
         <module name="kart-service" />
         <module name="reservation-service" />
-        <module name="paymentreceipt-service" />
         <module name="paymentdetail-service" />
+        <module name="paymentreceipt-service" />
         <module name="pricing-service" />
         <module name="client-service" />
       </profile>
