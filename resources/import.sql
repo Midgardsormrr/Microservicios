@@ -1,0 +1,15 @@
+INSERT INTO kart (id, code, status) VALUES (1, 'K001', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (2, 'K002', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (3, 'K003', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (4, 'K004', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (5, 'K005', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (6, 'K006', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (7, 'K007', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (8, 'K008', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (9, 'K009', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (10, 'K010', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (11, 'K011', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (12, 'K012', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (13, 'K013', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (14, 'K014', 'AVAILABLE');
+INSERT INTO kart (id, code, status) VALUES (15, 'K015', 'AVAILABLE');
