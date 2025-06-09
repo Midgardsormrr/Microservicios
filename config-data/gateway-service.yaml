@@ -29,7 +29,7 @@ spring:
         - id: client-service
           uri: lb://client-service
           predicates:
-            - Path=/client/**
+            - Path=/clients/**
         - id: kart-service
           uri: lb://kart-service
           predicates:
