@@ -33,15 +33,15 @@ spring:
         - id: kart-service
           uri: lb://kart-service
           predicates:
-            - Path=/kart/**
+            - Path=/karts/**
         - id: paymentdetail-service
           uri: lb://paymentdetail-service
           predicates:
-            - Path=/paymentdetail/**
+            - Path=/payment-details/**
         - id: paymentreceipt-service
           uri: lb://paymentreceipt-service
           predicates:
-            - Path=/paymentreceipt/**
+            - Path=/receipts/**
         - id: pricing-service
           uri: lb://pricing-service
           predicates:
@@ -49,8 +49,8 @@ spring:
         - id: reservation-service
           uri: lb://reservation-service
           predicates:
-            - Path=/reservation/**
+            - Path=/reservations/**
         - id: specialday-service
           uri: lb://specialday-service
           predicates:
-            - Path=/specialday/**
+            - Path=/special-days/**
