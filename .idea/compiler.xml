@@ -10,7 +10,7 @@
         <module name="eureka-service" />
         <module name="config-service" />
       </profile>
-      <profile name="Annotation profile for config-service" enabled="true">
+      <profile name="Annotation profile for kart-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -19,6 +19,7 @@
         </processorPath>
         <module name="specialday-service" />
         <module name="gateway-service" />
+        <module name="kart-service" />
         <module name="reservation-service" />
         <module name="paymentreceipt-service" />
         <module name="paymentdetail-service" />
@@ -26,9 +27,6 @@
         <module name="client-service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="kart-service" target="17" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
