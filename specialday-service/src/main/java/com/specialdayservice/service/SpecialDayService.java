@@ -22,7 +22,7 @@ public class SpecialDayService {
     }
 
     public SpecialDay isSpecialDay(LocalDate date) {
-        return specialDayRepository.existsByDate(date);
+        return specialDayRepository.findByDate(date);
     }
 
     public SpecialDay getSpecialDayByType(String type) {

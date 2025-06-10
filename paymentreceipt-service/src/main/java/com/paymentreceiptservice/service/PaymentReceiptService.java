@@ -4,8 +4,12 @@ import com.paymentreceiptservice.entity.*;
 import com.paymentreceiptservice.model.*;
 import com.paymentreceiptservice.repository.PaymentReceiptRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.DayOfWeek;
@@ -46,24 +50,36 @@ public class PaymentReceiptService {
         float priceMultiplier = 1.0f;
 
         if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
-            SpecialDay weekend = restTemplate.getForObject(
-                    "http://specialday-service/special-days/type/WEEKEND",
-                    SpecialDay.class
-            );
+            try {
+                SpecialDay weekend = restTemplate.getForObject(
+                        "http://specialday-service/special-days/type/WEEKEND",
+                        SpecialDay.class
+                );
 
-            if (weekend != null) {
-                priceMultiplier = (float) weekend.getPriceMultiplier();
-                System.out.println("Aplicado multiplicador de fin de semana: " + priceMultiplier);
+                if (weekend != null) {
+                    priceMultiplier = (float) weekend.getPriceMultiplier();
+                    System.out.println("Aplicado multiplicador de fin de semana: " + priceMultiplier);
+                }
+            } catch (HttpClientErrorException.NotFound ex) {
+                System.out.println("No se encontró multiplicador de fin de semana (WEEKEND). Se usará multiplicador por defecto: " + priceMultiplier);
+            } catch (Exception ex) {
+                System.out.println("Error inesperado al consultar multiplicador WEEKEND: " + ex.getMessage());
             }
         } else {
-            SpecialDay holiday = restTemplate.getForObject(
-                    "http://specialday-service/special-days/date/" + reservationDate,
-                    SpecialDay.class
-            );
+            try {
+                SpecialDay holiday = restTemplate.getForObject(
+                        "http://specialday-service/special-days/date/" + reservationDate,
+                        SpecialDay.class
+                );
 
-            if (holiday != null && "HOLIDAY".equalsIgnoreCase(holiday.getType())) {
-                priceMultiplier = (float) holiday.getPriceMultiplier();
-                System.out.println("Aplicado multiplicador de feriado: " + priceMultiplier);
+                if (holiday != null && "HOLIDAY".equalsIgnoreCase(holiday.getType())) {
+                    priceMultiplier = (float) holiday.getPriceMultiplier();
+                    System.out.println("Aplicado multiplicador de feriado: " + priceMultiplier);
+                }
+            } catch (HttpClientErrorException.NotFound ex) {
+                System.out.println("No se encontró día especial para la fecha: " + reservationDate);
+            } catch (Exception ex) {
+                System.out.println("Error inesperado al consultar día especial por fecha: " + ex.getMessage());
             }
         }
 
@@ -75,28 +91,37 @@ public class PaymentReceiptService {
         System.out.println("Descuento grupal: " + groupDiscount + "%");
 
         // 4) Obtener todos los cleientes
-        List<Client> clients = restTemplate.postForObject(
+        ResponseEntity<List<Client>> response = restTemplate.exchange(
                 "http://client-service/clients/batch",
-                reservation.getClientRuts(),
-                List.class
+                HttpMethod.POST,
+                new HttpEntity<>(reservation.getClientRuts()),
+                new ParameterizedTypeReference<List<Client>>() {}
         );
+        List<Client> clients = response.getBody();
+
 
         if (clients == null || clients.isEmpty()) {
             throw new RuntimeException("No se encontraron clientes para esta reserva");
         }
 
         // 5) Lógica cumpleañeros
-        SpecialDay birthdaySpecial = restTemplate.getForObject(
-                "http://specialday-service/special-days/type/BIRTHDAY", // <- ruta corregida
-                SpecialDay.class
-        );
+        SpecialDay birthdaySpecial = null;
+        try {
+            birthdaySpecial = restTemplate.getForObject(
+                    "http://specialday-service/special-days/type/BIRTHDAY",
+                    SpecialDay.class
+            );
 
-        if (birthdaySpecial == null) {
-            System.out.println("No se encontró un especial de cumpleaños en el servicio.");
-        } else {
-            System.out.println("Multiplicador de cumpleaños: " + birthdaySpecial.getPriceMultiplier());
+            if (birthdaySpecial == null) {
+                System.out.println("No se encontró un especial de cumpleaños en el servicio.");
+            } else {
+                System.out.println("Multiplicador de cumpleaños: " + birthdaySpecial.getPriceMultiplier());
+            }
+        } catch (HttpClientErrorException.NotFound ex) {
+            System.out.println("El tipo BIRTHDAY no está registrado como día especial en el servicio.");
+        } catch (Exception ex) {
+            System.out.println("Error inesperado al consultar el especial de cumpleaños: " + ex.getMessage());
         }
-
 
 
         int maxBirthday = calculateMaxBirthday(people);
