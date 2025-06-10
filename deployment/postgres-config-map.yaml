@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config-map
+  labels:
+    app: postgres-config-map
+data:
+  DB_HOST_KART_SERVICE: kart-db-service
+  DB_PORT_KART_SERVICE: "5433"
+  DB_DBNAME_KART_SERVICE: karts
+
+  DB_HOST_PAYMENTDETAIL_SERVICE: paymentdetail-db-service
+  DB_PORT_PAYMENTDETAIL_SERVICE: "5433"
+  DB_DBNAME_PAYMENTDETAIL_SERVICE: paymentdetail
+
+  DB_HOST_PAYMENTRECEIPT_SERVICE: paymentreceipt-db-service
+  DB_PORT_PAYMENTRECEIPT_SERVICE: "5433"
+  DB_DBNAME_PAYMENTRECEIPT_SERVICE: paymentreceipt
+
+  DB_HOST_SPECIALDAY_SERVICE: specialday-db-service
+  DB_PORT_SPECIALDAY_SERVICE: "5433"
+  DB_DBNAME_SPECIALDAY_SERVICE: specialday
+
+  DB_HOST_RESERVATION_SERVICE: reservation-db-service
+  DB_PORT_RESERVATION_SERVICE: "5433"
+  DB_DBNAME_RESERVATION_SERVICE: reservation
+
+  DB_HOST_PRICING_SERVICE: pricing-db-service
+  DB_PORT_PRICING_SERVICE: "5433"
+  DB_DBNAME_PRICING_SERVICE: pricing
+
+  DB_HOST_CLIENT_SERVICE: client-db-service
+  DB_PORT_CLIENT_SERVICE: "5433"
+  DB_DBNAME_CLIENT_SERVICE: clients
