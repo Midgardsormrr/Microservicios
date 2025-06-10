@@ -1,0 +1,39 @@
+
+.app-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+.main-content {
+  flex: 1;
+  overflow: hidden;
+  padding: 0;
+  margin-top: 64px; /* Altura del navbar */
+}
+
+/* Asegura que la tabla ocupe todo el espacio */
+.MuiTableContainer-root {
+  height: 100% !important;
+  overflow: auto;
+}
+
+.main-content {
+  flex: 1;
+  overflow: auto; /* Permitir desplazamiento si es necesario */
+  margin-top: 64px; /* Altura del navbar */
+}
+
+.MuiTableContainer-root {
+  height: calc(100vh - 64px) !important; /* Restando el tamaño del navbar */
+  overflow: auto;
+}
+
+.MuiTableHead-root {
+  position: sticky;
+  top: 0;
+  background-color: #fff; /* Ajusta el color de fondo si es necesario */
+  z-index: 1; /* Asegura que el encabezado quede sobre el contenido */
+}
+
