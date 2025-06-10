@@ -4,3 +4,6 @@ INSERT INTO client (id, rut, name, email, birth_date, monthly_visit_count) VALUE
 INSERT INTO client (id, rut, name, email, birth_date, monthly_visit_count) VALUES (4, '99.888.777-6', 'Ana Torres', 'ana.torres@example.com', '2000-04-15', 3);
 INSERT INTO client (id, rut, name, email, birth_date, monthly_visit_count) VALUES (5, '10.101.202-3', 'Luis Herrera', 'luis.herrera@example.com', '1995-09-30', 0);
 INSERT INTO client (id, rut, name, email, birth_date, monthly_visit_count) VALUES (6, '77.666.555-4', 'Paula Rivas', 'paula.rivas@example.com', '1982-01-05', 5);
+
+-- Actualiza automáticamente la secuencia para evitar conflictos con nuevos inserts
+SELECT setval('client_id_seq', (SELECT MAX(id) FROM client));

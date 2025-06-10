@@ -11,7 +11,7 @@ const getById = (id) => {
 };
 
 const create = (reservationData) => {
-  return httpClient.post("/reservations/create", reservationData)
+  return httpClient.post("/reservations", reservationData)
     .then(res => res.data);
 };
 

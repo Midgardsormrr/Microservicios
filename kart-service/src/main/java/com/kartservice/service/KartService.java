@@ -44,7 +44,7 @@ public class KartService {
     }
 
     public List<Kart> getAvailableKartsByCodes(List<String> kartCodes) {
-        return kartRepository.findByCodeInAndStatus(kartCodes, "disponible");
+        return kartRepository.findByCodeInAndStatus(kartCodes, "AVAILABLE");
     }
 
 }

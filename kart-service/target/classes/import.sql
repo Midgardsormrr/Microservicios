@@ -13,3 +13,4 @@ INSERT INTO kart (id, code, status) VALUES (12, 'K012', 'AVAILABLE');
 INSERT INTO kart (id, code, status) VALUES (13, 'K013', 'AVAILABLE');
 INSERT INTO kart (id, code, status) VALUES (14, 'K014', 'AVAILABLE');
 INSERT INTO kart (id, code, status) VALUES (15, 'K015', 'AVAILABLE');
+SELECT setval('kart_id_seq', (SELECT MAX(id) FROM kart));

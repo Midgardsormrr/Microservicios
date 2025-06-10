@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/special-days")
-@CrossOrigin("*")
 public class SpecialDayController {
 
     @Autowired
@@ -34,8 +33,8 @@ public class SpecialDayController {
     }
 
     @GetMapping("/is-special/{date}")
-    public ResponseEntity<Boolean> isSpecial(@PathVariable("date") String date) {
-        boolean isSpecial = specialDayService.isSpecialDay(LocalDate.parse(date));
+    public ResponseEntity<SpecialDay> isSpecial(@PathVariable("date") String date) {
+        SpecialDay isSpecial = specialDayService.isSpecialDay(LocalDate.parse(date));
         return ResponseEntity.ok(isSpecial);
     }
 

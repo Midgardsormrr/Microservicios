@@ -57,10 +57,11 @@ public class PaymentReceiptService {
             }
         } else {
             SpecialDay holiday = restTemplate.getForObject(
-                    "http://specialday-service/special-days/is-special/" + reservationDate,
+                    "http://specialday-service/special-days/date/" + reservationDate,
                     SpecialDay.class
             );
-            if (holiday != null) {
+
+            if (holiday != null && "HOLIDAY".equalsIgnoreCase(holiday.getType())) {
                 priceMultiplier = (float) holiday.getPriceMultiplier();
                 System.out.println("Aplicado multiplicador de feriado: " + priceMultiplier);
             }

@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pricing")
-@CrossOrigin("*")
 public class PricingController {
 
     @Autowired

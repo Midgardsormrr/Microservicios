@@ -21,7 +21,7 @@ public class SpecialDayService {
         return (SpecialDay) specialDayRepository.findByDate(date);
     }
 
-    public boolean isSpecialDay(LocalDate date) {
+    public SpecialDay isSpecialDay(LocalDate date) {
         return specialDayRepository.existsByDate(date);
     }
 
