@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: eureka-service
-          image: dguerra15/eureka-service:latest
+          image: dguerra15/eureka-service
           ports:
             - containerPort: 8761
 ---
