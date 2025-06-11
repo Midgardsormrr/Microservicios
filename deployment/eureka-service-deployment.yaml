@@ -19,11 +19,6 @@ spec:
           image: dguerra15/eureka-service
           ports:
             - containerPort: 8761
-          env:
-            - name: EUREKA_INSTANCE_HOSTNAME
-              value: eureka-service
-            - name: SERVER_PORT
-              value: "8761"
           livenessProbe:
             httpGet:
               path: /
