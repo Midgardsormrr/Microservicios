@@ -23,14 +23,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-service-service
+  name: config-service  # Este es el nombre DNS que otros servicios usarán
   labels:
-    app: config-service-service
+    app: config-service
 spec:
   selector:
-    app: config-service-deployment
+    app: config-service  # Debe coincidir con los labels de tu Pod/Deployment
   ports:
     - protocol: TCP
       port: 8081
       targetPort: 8081
-  type: LoadBalancer
+  type: LoadBalancer  # LoadBalancer solo se necesita si se expone hacia afuera
