@@ -7,7 +7,7 @@ metadata:
 data:
   DB_HOST_KART_SERVICE: kart-db-service
   DB_PORT_KART_SERVICE: "5433"
-  DB_DBNAME_KART_SERVICE: karts
+  DB_DBNAME_KART_SERVICE: kart
 
   DB_HOST_PAYMENTDETAIL_SERVICE: paymentdetail-db-service
   DB_PORT_PAYMENTDETAIL_SERVICE: "5433"
