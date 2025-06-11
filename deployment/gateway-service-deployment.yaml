@@ -19,6 +19,11 @@ spec:
           image: dguerra15/gateway-service
           ports:
             - containerPort: 8080
+          env:
+            - name: SPRING_CLOUD_CONFIG_URI
+              value: http://config-service:8081
+            - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
+              value: http://eureka-service:8761/eureka/
           livenessProbe:
             httpGet:
               path: /
