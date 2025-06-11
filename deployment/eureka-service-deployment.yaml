@@ -20,12 +20,6 @@ spec:
           ports:
             - containerPort: 8761
           env:
-            - name: EUREKA_CLIENT_REGISTER_WITH_EUREKA
-              value: "false"
-            - name: EUREKA_CLIENT_FETCH_REGISTRY
-              value: "false"
-            - name: EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE
-              value: http://eureka-service:8761/eureka/
             - name: EUREKA_INSTANCE_HOSTNAME
               value: eureka-service
             - name: SERVER_PORT
