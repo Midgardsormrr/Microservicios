@@ -18,7 +18,7 @@ spec:
         - name: frontend
           image: dguerra15/frontend
           ports:
-            - containerPort: 3000
+            - containerPort: 4173
 ---
 apiVersion: v1
 kind: Service
