@@ -34,3 +34,4 @@ spec:
       port: 8081
       targetPort: 8081
   type: LoadBalancer  # LoadBalancer solo se necesita si se expone hacia afuera
+---
