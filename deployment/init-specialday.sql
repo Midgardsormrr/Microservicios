@@ -78,13 +78,31 @@ ALTER TABLE ONLY public.special_day ALTER COLUMN id SET DEFAULT nextval('public.
 COPY public.special_day (id, date, type, price_multiplier) FROM stdin;
 1	2023-12-25	HOLIDAY	1.5
 2	2023-12-31	WEEKEND	1.2
+3	2025-01-01	HOLIDAY	1.2
+4	2025-03-28	HOLIDAY	1.1
+5	2025-03-29	HOLIDAY	1.1
+6	2025-05-01	HOLIDAY	1.2
+7	2025-05-21	HOLIDAY	1.1
+8	2025-06-20	HOLIDAY	1.1
+9	2025-06-29	HOLIDAY	1.1
+10	2025-07-16	HOLIDAY	1.1
+11	2025-08-15	HOLIDAY	1.1
+12	2025-09-18	HOLIDAY	1.3
+13	2025-09-19	HOLIDAY	1.3
+14	2025-10-12	HOLIDAY	1.1
+15	2025-10-31	HOLIDAY	1.1
+16	2025-11-01	HOLIDAY	1.1
+17	2025-12-08	HOLIDAY	1.1
+18	2025-12-25	HOLIDAY	1.2
+19	1900-01-01	WEEKEND	1.4
+20	1900-01-02	BIRTHDAY	0.5
 \.
 
 --
 -- Name: special_day_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.special_day_id_seq', 2, true);
+SELECT pg_catalog.setval('public.special_day_id_seq', 20, true);
 
 --
 -- Name: special_day special_day_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
@@ -95,4 +113,3 @@ ALTER TABLE ONLY public.special_day
 
 --
 -- PostgreSQL database dump complete
---

@@ -3,6 +3,7 @@
 
 -- Eliminar la base de datos si ya existe
 DROP DATABASE IF EXISTS "client";
+
 -- Crear la nueva base de datos
 CREATE DATABASE "client";
 
@@ -80,13 +81,22 @@ COPY public.client (id, rut, name, email, birth_date, monthly_visit_count) FROM 
 1	12.345.678-5	Juan Perez	juan.perez@example.com	1990-05-10	3
 2	20.123.456-7	María López	maria.lopez@example.com	1985-12-01	7
 3	11.222.333-0	Pedro García	pedro.garcia@example.com	2000-03-15	1
+4	15.678.912-3	Ana Torres	ana.torres@example.com	1995-07-22	5
+5	17.345.987-1	Carlos Díaz	carlos.diaz@example.com	1988-10-03	2
+6	16.890.321-4	Sofía Rojas	sofia.rojas@example.com	1992-01-30	4
+7	13.654.789-6	Luis Fuentes	luis.fuentes@example.com	1983-06-12	6
+8	14.321.678-2	Valentina Soto	valentina.soto@example.com	1996-11-17	3
+9	18.765.432-1	Javier Morales	javier.morales@example.com	1999-09-25	1
+10	19.543.210-9	Fernanda Ruiz	fernanda.ruiz@example.com	2001-04-05	2
+11	21.987.654-3	Ricardo Vega	ricardo.vega@example.com	1991-03-19	7
+12	22.345.678-4	Marcela Bravo	marcela.bravo@example.com	1987-08-08	5
 \.
 
 --
 -- Name: client_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.client_id_seq', 3, true);
+SELECT pg_catalog.setval('public.client_id_seq', 12, true);
 
 --
 -- Name: client client_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres

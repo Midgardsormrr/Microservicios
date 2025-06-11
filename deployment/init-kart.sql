@@ -78,13 +78,25 @@ COPY public.kart (id, code, status) FROM stdin;
 1	K001	AVAILABLE
 2	K002	AVAILABLE
 3	K003	UNDER_MAINTENANCE
+4	K004	AVAILABLE
+5	K005	AVAILABLE
+6	K006	UNDER_MAINTENANCE
+7	K007	AVAILABLE
+8	K008	AVAILABLE
+9	K009	UNDER_MAINTENANCE
+10	K010	AVAILABLE
+11	K011	AVAILABLE
+12	K012	UNDER_MAINTENANCE
+13	K013	AVAILABLE
+14	K014	AVAILABLE
+15	K015	UNDER_MAINTENANCE
 \.
 
 --
 -- Name: kart_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.kart_id_seq', 3, true);
+SELECT pg_catalog.setval('public.kart_id_seq', 15, true);
 
 --
 -- Name: kart kart_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
@@ -95,4 +107,3 @@ ALTER TABLE ONLY public.kart
 
 --
 -- PostgreSQL database dump complete
---
