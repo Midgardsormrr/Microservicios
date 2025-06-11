@@ -1,0 +1,321 @@
+# KART DB
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kart-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kart-db
+  template:
+    metadata:
+      labels:
+        app: kart-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: karts
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_KART_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_KART_SERVICE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kart-db-service
+spec:
+  selector:
+    app: kart-db
+  ports:
+    - port: 5433
+      targetPort: 5432
+
+# PAYMENTDETAIL DB
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentdetail-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paymentdetail-db
+  template:
+    metadata:
+      labels:
+        app: paymentdetail-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: paymentdetail
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_PAYMENTDETAIL_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_PAYMENTDETAIL_SERVICE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paymentdetail-db-service
+spec:
+  selector:
+    app: paymentdetail-db
+  ports:
+    - port: 5433
+      targetPort: 5432
+
+# PAYMENTRECEIPT DB
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentreceipt-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paymentreceipt-db
+  template:
+    metadata:
+      labels:
+        app: paymentreceipt-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: paymentreceipt
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_PAYMENTRECEIPT_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_PAYMENTRECEIPT_SERVICE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paymentreceipt-db-service
+spec:
+  selector:
+    app: paymentreceipt-db
+  ports:
+    - port: 5433
+      targetPort: 5432
+
+# SPECIALDAY DB
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: specialday-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: specialday-db
+  template:
+    metadata:
+      labels:
+        app: specialday-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: specialday
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_SPECIALDAY_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_SPECIALDAY_SERVICE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: specialday-db-service
+spec:
+  selector:
+    app: specialday-db
+  ports:
+    - port: 5433
+      targetPort: 5432
+
+# RESERVATION DB
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation-db
+  template:
+    metadata:
+      labels:
+        app: reservation-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: reservation
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_RESERVATION_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_RESERVATION_SERVICE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation-db-service
+spec:
+  selector:
+    app: reservation-db
+  ports:
+    - port: 5433
+      targetPort: 5432
+
+# PRICING DB
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pricing-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pricing-db
+  template:
+    metadata:
+      labels:
+        app: pricing-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: pricing
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_PRICING_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_PRICING_SERVICE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pricing-db-service
+spec:
+  selector:
+    app: pricing-db
+  ports:
+    - port: 5433
+      targetPort: 5432
+
+# CLIENT DB
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-db
+  template:
+    metadata:
+      labels:
+        app: client-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: clients
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_CLIENT_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_CLIENT_SERVICE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-db-service
+spec:
+  selector:
+    app: client-db
+  ports:
+    - port: 5433
+      targetPort: 5432

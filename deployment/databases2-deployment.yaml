@@ -1,0 +1,667 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: karts-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/karts-db-data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: karts-db-pvc
+  labels:
+    app: postgres
+    tier: database
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karts-db-deployment
+  labels:
+    app: karts-db-deployment
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: karts-db-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: karts-db-deployment
+        tier: database
+    spec:
+      containers:
+        - name: karts-db
+          image: postgres
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_KART_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_KART_SERVICE
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: karts-db-data
+      volumes:
+        - name: karts-db-data
+          persistentVolumeClaim:
+            claimName: karts-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kart-db-service
+  labels:
+    app: kart-db-service
+    tier: database
+spec:
+  ports:
+    - port: 5433
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: karts-db-deployment
+    tier: database
+  type: LoadBalancer
+---
+
+
+# paymentreceipt
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paymentreceipt-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/paymentreceipt-db-data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paymentreceipt-db-pvc
+  labels:
+    app: postgres
+    tier: database
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentreceipt-db-deployment
+  labels:
+    app: paymentreceipt-db-deployment
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: paymentreceipt-db-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: paymentreceipt-db-deployment
+        tier: database
+    spec:
+      containers:
+        - name: paymentreceipt-db
+          image: postgres
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_PAYMENTRECEIPT_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_PAYMENTRECEIPT_SERVICE
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: paymentreceipt-db-data
+      volumes:
+        - name: paymentreceipt-db-data
+          persistentVolumeClaim:
+            claimName: paymentreceipt-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paymentreceipt-db-service
+  labels:
+    app: paymentreceipt-db-service
+    tier: database
+spec:
+  ports:
+    - port: 5433
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: paymentreceipt-db-deployment
+    tier: database
+  type: LoadBalancer
+---
+
+
+
+# paymentdetail
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: paymentdetail-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/paymentdetail-db-data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: paymentdetail-db-pvc
+  labels:
+    app: postgres
+    tier: database
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentdetail-db-deployment
+  labels:
+    app: paymentdetail-db-deployment
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: paymentdetail-db-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: paymentdetail-db-deployment
+        tier: database
+    spec:
+      containers:
+        - name: paymentdetail-db
+          image: postgres
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_PAYMENTDETAIL_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_PAYMENTDETAIL_SERVICE
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: paymentdetail-db-data
+      volumes:
+        - name: paymentdetail-db-data
+          persistentVolumeClaim:
+            claimName: paymentdetail-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: paymentdetail-db-service
+  labels:
+    app: paymentdetail-db-service
+    tier: database
+spec:
+  ports:
+    - port: 5433
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: paymentdetail-db-deployment
+    tier: database
+  type: LoadBalancer
+---
+
+
+
+# specialday
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: specialday-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/specialday-db-data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: specialday-db-pvc
+  labels:
+    app: postgres
+    tier: database
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: specialday-db-deployment
+  labels:
+    app: specialday-db-deployment
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: specialday-db-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: specialday-db-deployment
+        tier: database
+    spec:
+      containers:
+        - name: specialday-db
+          image: postgres
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_SPECIALDAY_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_SPECIALDAY_SERVICE
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: specialday-db-data
+      volumes:
+        - name: specialday-db-data
+          persistentVolumeClaim:
+            claimName: specialday-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: specialday-db-service
+  labels:
+    app: specialday-db-service
+    tier: database
+spec:
+  ports:
+    - port: 5433
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: specialday-db-deployment
+    tier: database
+  type: LoadBalancer
+---
+
+
+
+# reservation
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: reservation-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/reservation-db-data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: reservation-db-pvc
+  labels:
+    app: postgres
+    tier: database
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-db-deployment
+  labels:
+    app: reservation-db-deployment
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: reservation-db-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: reservation-db-deployment
+        tier: database
+    spec:
+      containers:
+        - name: reservation-db
+          image: postgres
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_RESERVATION_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_RESERVATION_SERVICE
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: reservation-db-data
+      volumes:
+        - name: reservation-db-data
+          persistentVolumeClaim:
+            claimName: reservation-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation-db-service
+  labels:
+    app: reservation-db-service
+    tier: database
+spec:
+  ports:
+    - port: 5433
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: reservation-db-deployment
+    tier: database
+  type: LoadBalancer
+---
+
+
+
+# pricing
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pricing-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/pricing-db-data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pricing-db-pvc
+  labels:
+    app: postgres
+    tier: database
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pricing-db-deployment
+  labels:
+    app: pricing-db-deployment
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: pricing-db-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pricing-db-deployment
+        tier: database
+    spec:
+      containers:
+        - name: pricing-db
+          image: postgres
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_PRICING_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_PRICING_SERVICE
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: pricing-db-data
+      volumes:
+        - name: pricing-db-data
+          persistentVolumeClaim:
+            claimName: pricing-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pricing-db-service
+  labels:
+    app: pricing-db-service
+    tier: database
+spec:
+  ports:
+    - port: 5433
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: pricing-db-deployment
+    tier: database
+  type: LoadBalancer
+---
+
+
+
+
+# client
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: client-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/client-db-data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: client-db-pvc
+  labels:
+    app: postgres
+    tier: database
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-db-deployment
+  labels:
+    app: client-db-deployment
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: client-db-deployment
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: client-db-deployment
+        tier: database
+    spec:
+      containers:
+        - name: client-db
+          image: postgres
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_USER_CLIENT_SERVICE
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: DB_PASSWORD_CLIENT_SERVICE
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: client-db-data
+      volumes:
+        - name: client-db-data
+          persistentVolumeClaim:
+            claimName: client-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-db-service
+  labels:
+    app: client-db-service
+    tier: database
+spec:
+  ports:
+    - port: 5433
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: client-db-deployment
+    tier: database
+  type: LoadBalancer
+---
+
+
+
+
+
+
