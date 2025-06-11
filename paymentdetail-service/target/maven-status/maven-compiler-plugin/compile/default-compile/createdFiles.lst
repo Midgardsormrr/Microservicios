@@ -1,0 +1,5 @@
+com\paymentdetailservice\PaymentDetailServiceApplication.class
+com\paymentdetailservice\repository\PaymentDetailRepository.class
+com\paymentdetailservice\service\PaymentDetailService.class
+com\paymentdetailservice\controller\PaymentDetailController.class
+com\paymentdetailservice\entity\PaymentDetail.class

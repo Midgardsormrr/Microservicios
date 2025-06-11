@@ -1,0 +1,10 @@
+com\reservationservice\ReservationServiceApplication.class
+com\reservationservice\controller\ReservationController.class
+com\reservationservice\model\Client.class
+com\reservationservice\model\Kart.class
+com\reservationservice\model\PaymentReceipt.class
+com\reservationservice\entity\Reservation.class
+com\reservationservice\config\RestTemplateConfig.class
+com\reservationservice\service\ReservationService.class
+com\reservationservice\model\PaymentDetail.class
+com\reservationservice\repository\ReservationRepository.class

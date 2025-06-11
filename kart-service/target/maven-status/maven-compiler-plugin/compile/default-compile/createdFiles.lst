@@ -1,0 +1,5 @@
+com\kartservice\controller\KartController.class
+com\kartservice\repository\KartRepository.class
+com\kartservice\service\KartService.class
+com\kartservice\KartServiceApplication.class
+com\kartservice\entity\Kart.class

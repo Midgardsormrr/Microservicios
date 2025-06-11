@@ -1,0 +1,5 @@
+com\pricingservice\entity\Pricing.class
+com\pricingservice\service\PricingService.class
+com\pricingservice\repository\PricingRepository.class
+com\pricingservice\controller\PricingController.class
+com\pricingservice\PricingServiceApplication.class
